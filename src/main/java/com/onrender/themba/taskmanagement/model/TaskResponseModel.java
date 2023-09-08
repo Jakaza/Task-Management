@@ -1,16 +1,25 @@
 package com.onrender.themba.taskmanagement.model;
 
+import com.onrender.themba.taskmanagement.entity.TaskEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class TaskResponseModel {
     private String message;
-    private Long id;
-    private String title;
-    private String description;
+    private int totalPage;
+    private int currentPage;
+    private Long totalIntem;
+    private List<TaskEntity> tasks = new ArrayList<>();
 
-    public TaskResponseModel(String message, Long id, String title, String description) {
+    public TaskResponseModel() {
+    }
+
+    public TaskResponseModel(String message, int totalPage, int currentPage, List<TaskEntity> tasks) {
         this.message = message;
-        this.id = id;
-        this.title = title;
-        this.description = description;
+        this.totalPage = totalPage;
+        this.currentPage = currentPage;
+        this.tasks = tasks;
     }
 
     public String getMessage() {
@@ -21,27 +30,35 @@ public class TaskResponseModel {
         this.message = message;
     }
 
-    public Long getId() {
-        return id;
+    public int getTotalPage() {
+        return totalPage;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
     }
 
-    public String getTitle() {
-        return title;
+    public int getCurrentPage() {
+        return currentPage;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 
-    public String getDescription() {
-        return description;
+    public Long getTotalIntem() {
+        return totalIntem;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTotalIntem(Long totalIntem) {
+        this.totalIntem = totalIntem;
+    }
+
+    public List<TaskEntity> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<TaskEntity> tasks) {
+        this.tasks = tasks;
     }
 }
