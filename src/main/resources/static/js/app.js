@@ -34,11 +34,11 @@ function sendAddTaskRequest(e){
 
 }
 
-function sendFetchTaskRequest(page = 1){
+function sendFetchTaskRequest(pageNumber = 1){
 
   const request = new XMLHttpRequest()
 
-  request.open("GET", "http://127.0.0.1:8080/tasks", true)
+  request.open("GET", "http://127.0.0.1:8080/tasks/page/"+pageNumber, true)
 
   request.setRequestHeader("Content-Type", "application/json")
 
@@ -99,7 +99,7 @@ function renderTask(data){
 
   for (let i = 0; i < totalPage; i++){
     numbersTemplate += `
-      <li class="page-item"><a class="page-link" href="#">${(i+1)}</a></li>
+      <li class="page-item"><a class="page-link" onClick="sendFetchTaskRequest(${i + 1})" href="#">${(i+1)}</a></li>
     `
   }
 
@@ -115,6 +115,10 @@ function renderTask(data){
 
 }
 
+
+function testing(page = 1){
+  alert(page)
+}
 
  
 // Save new To-Do
