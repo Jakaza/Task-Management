@@ -2,6 +2,7 @@ package com.onrender.themba.taskmanagement.controller;
 
 import com.onrender.themba.taskmanagement.model.TaskModel;
 import com.onrender.themba.taskmanagement.entity.TaskEntity;
+import com.onrender.themba.taskmanagement.model.TaskResponseModel;
 import com.onrender.themba.taskmanagement.repository.TaskRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
@@ -24,18 +25,24 @@ public class TaskController {
 
 
     @GetMapping("/tasks")
-    public ResponseEntity<List<TaskEntity>> getAllTask(){
+    public ResponseEntity<TaskResponseModel> getAllTask(){
         return findByPagination(1);
     }
 
     @GetMapping("/tasks/page/{pageNumber}")
-    public ResponseEntity<List<TaskEntity>> findByPagination(@PathVariable("pageNumber") int currentPage){
+    public ResponseEntity<TaskResponseModel> findByPagination(@PathVariable("pageNumber") int currentPage){
 
         Pageable pageable = PageRequest.of(currentPage-1, 3);
         Page<TaskEntity> page = taskRepository.findAll(pageable);
         List<TaskEntity> taskList = page.getContent();
 
-        return ResponseEntity.ok(taskList);
+
+        TaskResponseModel taskResponseModel = new TaskResponseModel();
+        taskResponseModel.setTotalPage(page.getTotalPages());
+        taskResponseModel.setMessage("Success");
+        taskResponseModel.setTasks(taskList);
+        taskResponseModel.setTotalIntem(page.getTotalElements());
+        return ResponseEntity.ok(taskResponseModel);
     }
 
     @PostMapping("/tasks/new")
